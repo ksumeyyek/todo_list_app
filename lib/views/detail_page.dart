@@ -35,7 +35,7 @@ class _DetailPageState extends State<DetailPage> {
               TextField(controller: tfIsadi,decoration: const InputDecoration(hintText: "Yapılacak İş"),),
 
               ElevatedButton(onPressed: (){
-                context.read<DetayCubit>().guncelle(widget.iss.yapilacak_id, tfIsadi.text);
+                context.read<DetayCubit>().update(widget.iss.yapilacak_id, tfIsadi.text);
               }, child: const Text("GÜNCELLE"))
             ],
           ),

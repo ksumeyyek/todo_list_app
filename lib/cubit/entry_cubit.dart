@@ -5,7 +5,7 @@ class KayitCubit extends Cubit<void> {
 
   var krepo = IsDaoRepository();
 
-  Future<void> kayit(String yapilacak_is) async {
-    await krepo.isKayit(yapilacak_is);
+  Future<void> entry(String yapilacak_is) async {
+    await krepo.doEntry(yapilacak_is);
   }
 }

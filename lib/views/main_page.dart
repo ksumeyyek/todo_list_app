@@ -13,44 +13,44 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  bool aramaYapiliyorMu = false;
+  bool search = false;
 
   @override
   void initState() {
     super.initState();
-    context.read<MainCubit>().isleriYukle();
+    context.read<MainCubit>().downDo();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: aramaYapiliyorMu ?
+        title: search ?
         TextField(decoration: const InputDecoration(hintText: "Ara"),
-          onChanged: (aramaSonucu){
-            context.read<MainCubit>().ara(aramaSonucu);
+          onChanged: (resultSearch){
+            context.read<MainCubit>().search(resultSearch);
           },) :
         const Text("Yapılacaklar"),
         actions: [
-          aramaYapiliyorMu ?
+          search ?
           IconButton(onPressed: (){
-            setState(() { aramaYapiliyorMu = false; });
-            context.read<MainCubit>().isleriYukle();
+            setState(() { search = false; });
+            context.read<MainCubit>().downDo();
           }, icon: const Icon(Icons.clear)) :
           IconButton(onPressed: (){
-            setState(() { aramaYapiliyorMu = true; });
+            setState(() { search = true; });
           }, icon: const Icon(Icons.search)),
         ],
       ),
       body: BlocBuilder<MainCubit,List<Todo>>(
-        builder: (context,kisilerListesi){
-          if(kisilerListesi.isNotEmpty){
+        builder: (context,doList){
+          if(doList.isNotEmpty){
             return ListView.builder(
-              itemCount: kisilerListesi.length,
+              itemCount: doList.length,
               itemBuilder: (context,indeks){
-                var iss = kisilerListesi[indeks];
+                var iss = doList[indeks];
                 return GestureDetector(
                   onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(iss: iss))).
-                  then((value) => {context.read<MainCubit>().isleriYukle()});},
+                  then((value) => {context.read<MainCubit>().downDo()});},
                   child: Card(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage> {
                                   content: Text("${iss.yapilacak_is} silinsin mi?"),
                                   action: SnackBarAction(
                                     label: "Evet",
-                                    onPressed: (){ context.read<MainCubit>().sil(iss.yapilacak_id); },
+                                    onPressed: (){ context.read<MainCubit>().delete(iss.yapilacak_id); },
                                   ),
                                 ));
                           }, icon: const Icon(Icons.delete_outline,color: Colors.black45,))
@@ -84,7 +84,7 @@ class _MainPageState extends State<MainPage> {
         child: const Icon(Icons.add),
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => const EntryPage())).then((value) =>
-          {context.read<MainCubit>().isleriYukle()});
+          {context.read<MainCubit>().downDo()});
         },
       ),
     );

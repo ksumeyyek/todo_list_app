@@ -7,19 +7,19 @@ class MainCubit extends Cubit<List<Todo>> {
 
   var krepo = IsDaoRepository();
 
-  Future<void> isleriYukle() async {
-    var liste = await krepo.tumIsleriAl();
+  Future<void> downDo() async {
+    var liste = await krepo.takeAllDo();
     emit(liste);
   }
 
-  Future<void> ara(String aramaKelimesi) async {
-    var liste = await krepo.isAra(aramaKelimesi);
+  Future<void> search(String searchWord) async {
+    var liste = await krepo.doSearch(searchWord);
     emit(liste);
   }
 
-  Future<void> sil(int yapilacak_id) async {
-    await krepo.isSil(yapilacak_id);
-    await isleriYukle();
+  Future<void> delete(int yapilacak_id) async {
+    await krepo.doDelete(yapilacak_id);
+    await downDo();
 
   }
 }

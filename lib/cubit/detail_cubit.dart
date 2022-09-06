@@ -5,7 +5,7 @@ class DetayCubit extends Cubit<void> {
 
   var krepo = IsDaoRepository();
 
-  Future<void> guncelle(int yapilacak_id,String yapilacak_is) async {
-    await krepo.isGuncelle(yapilacak_id, yapilacak_is);
+  Future<void> update(int yapilacak_id,String yapilacak_is) async {
+    await krepo.doUpdate(yapilacak_id, yapilacak_is);
   }
 }

@@ -25,7 +25,7 @@ class _EntryPageState extends State<EntryPage> {
               TextField(controller: tfIsadi,decoration: const InputDecoration(hintText: "Yapılacak İş"),),
 
               ElevatedButton(onPressed: (){
-                context.read<KayitCubit>().kayit(tfIsadi.text, );
+                context.read<KayitCubit>().entry(tfIsadi.text, );
               }, child: const Text("KAYIT"))
             ],
           ),
